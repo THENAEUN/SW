@@ -4,12 +4,15 @@ from matplotlib import rc
 %matplotlib inline
 from matplotlib import font_manager
 
+# 한글 폰트 설정
 f_path = "C:/windows/Fonts/malgun.ttf"
 font_manager.FontProperties(fname=f_path).get_name()
 rc('font', family='Malgun Gothic')
 
+# 기본 틀 설정
 fig, ax = plt.subplots(1, 1, figsize=(10, 2))
 
+# 데이터 프레임 생성
 data = [["확률과통계", "AI프로그래밍", "논리적문제해결", "인공지능기초", "기계학습"],
         ["AI알고리즘", "논리적문제해결", "AI알고리즘", "확률과통계", "리눅스운영체제"],
         ["-", "-", "-", "-", "-"],
@@ -17,6 +20,7 @@ data = [["확률과통계", "AI프로그래밍", "논리적문제해결", "인�
         ["인공지능기초", "서비스러닝", "리눅스운영체제", "영상이해", "AI수학"],
         ["논리적문제해결", "기계학습", "진로탐색", "논리적문제해결", "딥러닝"]]
 
+# 행렬 항목 추가 및 색상 설정
 column_labels = ["월", "화", "수", "목", "금"]
 df = pd.DataFrame(data, columns=column_labels)
 ax.axis('tight')
@@ -30,9 +34,7 @@ table = ax.table(
     loc="center", cellLoc="center"
 )
 
-table.auto_set_font_size(False)
-table.set_fontsize(10)
-
+# 글자 폰트 조정 및 모든 셀 크기 일괄 조정 
 for cell in table.get_celld().values():
     cell.set_fontsize(20)
     cell.set_height(0.3)
@@ -40,7 +42,7 @@ for cell in table.get_celld().values():
     
 
 
-# 사용 예시
+# 색상 예시
 color_1 = "#FFDBDB"
 color_2 = "#FFEAEA"
 color_3 = "#FFEFDB"
@@ -54,23 +56,23 @@ color_10 = "#EAF8FF"
 color_11 = "#EBDFFF"
 color_12 = "#F2EAFF"
 
-# 특정 셀 색칠하기
+# 특정 셀 색칠하기 (교수님 별 수업 색상을 동일하게 표시되도록 설정)
 table.get_celld()[(2, 2)].set_facecolor(color_1) ;table.get_celld()[(2, 0)].set_facecolor(color_1)
-table.get_celld()[(6, 1)].set_facecolor(color_2) ;table.get_celld()[(1, 4)].set_facecolor(color_2)
+table.get_celld()[(6, 1)].set_facecolor(color_1) ;table.get_celld()[(1, 4)].set_facecolor(color_1)
 
 table.get_celld()[(5, 0)].set_facecolor(color_3) ;table.get_celld()[(1, 3)].set_facecolor(color_3)
-table.get_celld()[(5, 1)].set_facecolor(color_4) ;table.get_celld()[(4, 4)].set_facecolor(color_4)
+table.get_celld()[(5, 1)].set_facecolor(color_3) ;table.get_celld()[(4, 4)].set_facecolor(color_3)
 
 table.get_celld()[(1, 0)].set_facecolor(color_5) ;table.get_celld()[(2, 3)].set_facecolor(color_5)
-table.get_celld()[(4, 2)].set_facecolor(color_6) ;table.get_celld()[(6, 4)].set_facecolor(color_6)
+table.get_celld()[(4, 2)].set_facecolor(color_5) ;table.get_celld()[(6, 4)].set_facecolor(color_5)
 
 table.get_celld()[(1, 1)].set_facecolor(color_7) ;table.get_celld()[(4, 3)].set_facecolor(color_7)
-table.get_celld()[(5, 2)].set_facecolor(color_8) ;table.get_celld()[(2, 4)].set_facecolor(color_8)
+table.get_celld()[(5, 2)].set_facecolor(color_7) ;table.get_celld()[(2, 4)].set_facecolor(color_7)
 
 table.get_celld()[(4, 0)].set_facecolor(color_9) ;table.get_celld()[(5, 4)].set_facecolor(color_9)
-table.get_celld()[(2, 1)].set_facecolor(color_10) ;table.get_celld()[(6, 3)].set_facecolor(color_10)
+table.get_celld()[(2, 1)].set_facecolor(color_9) ;table.get_celld()[(6, 3)].set_facecolor(color_9)
 
 table.get_celld()[(6, 0)].set_facecolor(color_11) ;table.get_celld()[(1, 2)].set_facecolor(color_11)
-table.get_celld()[(4, 1)].set_facecolor(color_12) ;table.get_celld()[(5, 3)].set_facecolor(color_12)
+table.get_celld()[(4, 1)].set_facecolor(color_11) ;table.get_celld()[(5, 3)].set_facecolor(color_11)
 
 plt.show()
