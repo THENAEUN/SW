@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import rc
-%matplotlib inline
 from matplotlib import font_manager
 
 # 한글 폰트 설정
@@ -21,14 +20,16 @@ data = [["확률과통계", "AI프로그래밍", "논리적문제해결", "인�
         ["논리적문제해결", "기계학습", "진로탐색", "논리적문제해결", "딥러닝"]]
 
 # 행렬 항목 추가 및 색상 설정
-column_labels = ["월", "화", "수", "목", "금"]
-df = pd.DataFrame(data, columns=column_labels)
-ax.axis('tight')
-ax.axis('off')
+column_labels = ["월", "화", "수", "목", "금"] # column(열)의 라벨 값들 리스트로 생성
+row_labels=["09:00 ~ 10:30", "10:30 ~ 12:00", "Lunch time", "13:00 ~ 14:30", "14:30 ~ 16:00", "16:00 ~ 17:30"] # row(값)
+ax.axis('tight') # 축 크기 자동 조정
+ax.axis('off') # 축과 라벨을 제거
+
+# matplotlib 라이브러리에 있는 table 함수를 이용하여 도표 생성
 table = ax.table(
-    cellText=df.values,
-    colLabels=df.columns,
-    rowLabels=["09:00 ~ 10:30", "10:30 ~ 12:00", "Lunch time", "13:00 ~ 14:30", "14:30 ~ 16:00", "16:00 ~ 17:30"],
+    cellText=data,                    # 각 셀에 들어갈 데이터 값 설정
+    colLabels=column_labels,          # column(열)의 값을 만들어 놓은 리스트로 설정
+    rowLabels=row_labels,             # row(행)의 값을 만들어 놓은 리스트로 설정
     rowColours=["Lightgray"] * 2 + ['Lightcyan'] * 1 + ["Lightgray"] * 3,
     colColours=["Lightgray"] * 5,
     loc="center", cellLoc="center"
@@ -58,22 +59,22 @@ color_12 = "#F2EAFF"
 
 # 특정 셀 색칠하기 (교수님 별 수업 색상을 동일하게 표시되도록 설정)
 table.get_celld()[(2, 2)].set_facecolor(color_1) ;table.get_celld()[(2, 0)].set_facecolor(color_1)
-table.get_celld()[(6, 1)].set_facecolor(color_1) ;table.get_celld()[(1, 4)].set_facecolor(color_1)
+table.get_celld()[(6, 1)].set_facecolor(color_1) ;table.get_celld()[(1, 4)].set_facecolor(color_2)
 
 table.get_celld()[(5, 0)].set_facecolor(color_3) ;table.get_celld()[(1, 3)].set_facecolor(color_3)
-table.get_celld()[(5, 1)].set_facecolor(color_3) ;table.get_celld()[(4, 4)].set_facecolor(color_3)
+table.get_celld()[(5, 1)].set_facecolor(color_3) ;table.get_celld()[(4, 4)].set_facecolor(color_4)
 
 table.get_celld()[(1, 0)].set_facecolor(color_5) ;table.get_celld()[(2, 3)].set_facecolor(color_5)
-table.get_celld()[(4, 2)].set_facecolor(color_5) ;table.get_celld()[(6, 4)].set_facecolor(color_5)
+table.get_celld()[(4, 2)].set_facecolor(color_5) ;table.get_celld()[(6, 4)].set_facecolor(color_6)
 
 table.get_celld()[(1, 1)].set_facecolor(color_7) ;table.get_celld()[(4, 3)].set_facecolor(color_7)
-table.get_celld()[(5, 2)].set_facecolor(color_7) ;table.get_celld()[(2, 4)].set_facecolor(color_7)
+table.get_celld()[(5, 2)].set_facecolor(color_7) ;table.get_celld()[(2, 4)].set_facecolor(color_8)
 
 table.get_celld()[(4, 0)].set_facecolor(color_9) ;table.get_celld()[(5, 4)].set_facecolor(color_9)
-table.get_celld()[(2, 1)].set_facecolor(color_9) ;table.get_celld()[(6, 3)].set_facecolor(color_9)
+table.get_celld()[(2, 1)].set_facecolor(color_9) ;table.get_celld()[(6, 3)].set_facecolor(color_10)
 
 table.get_celld()[(6, 0)].set_facecolor(color_11) ;table.get_celld()[(1, 2)].set_facecolor(color_11)
-table.get_celld()[(4, 1)].set_facecolor(color_11) ;table.get_celld()[(5, 3)].set_facecolor(color_11)
+table.get_celld()[(4, 1)].set_facecolor(color_11) ;table.get_celld()[(5, 3)].set_facecolor(color_12)
 
 # 모든 수업에 변수 설정
 ko1 = '확률과통계' # 고선우p1
@@ -93,6 +94,8 @@ so2 = '영상이해'
 
 km1 = 'AI프로그래밍' # 김영수p6
 km2 = '리눅스운영체제' 
+
+import random
 
 # 변수들이 들어있는 하나의 리스트 생성
 c_l = [ko1,ko2,kw1,kw2,mn1,mn2,le1,le2,so1,so2,km1,km2]
