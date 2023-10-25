@@ -1,0 +1,27 @@
+#한 과목이 무조건 2번씩 나오도록 함.
+import pandas as pd
+import random
+
+# 과목 리스트를 두 번 반복하여 확장합니다.
+subjects = ['확률과통계/고선우', '딥러닝/고선우', 'AI알고리즘/권수태', '기계학습/권수태', 'AI수학/민정익', '논리적문제해결/민정익', '인공지능기초/이근호', '서비스러닝/이근호', '논리적문제해결/송주환', '영상이해/송주환', 'AI프로그래밍/김영수', '리눅스운영체제/김영수']
+subjects = subjects + subjects  # 과목 리스트를 두 번 반복
+
+# 시간대 리스트를 만듭니다.
+time_slots = ['09:00', '10:30', '12:00', '01:00', '02:30', '04:00']
+
+# 무작위로 시간표를 생성합니다.
+timetable = pd.DataFrame(index=time_slots, columns=['월', '화', '수', '목', '금'])
+
+for day in timetable.columns:
+    for time in timetable.index:
+        if time == '12:00':
+            timetable.loc[time, day] = "점심시간"
+        elif day == '수' and time == '04:00':
+            timetable.loc[time, day] = "진로탐색"
+        else:
+            subject = random.choice(subjects)
+            subjects.remove(subject)  # 선택한 과목을 리스트에서 제거
+            timetable.loc[time, day] = subject
+
+# 생성된 시간표를 출력합니다.
+timetable
