@@ -28,10 +28,17 @@ for day in timetable.columns:
                 subject = duplicated_subjects.pop(0)
 
                 # 같은 과목이 같은 주에 중복되지 않도록 조정
+                attempts = 0
+                max_attempts = 10  # 최대 시도 횟수를 정의하여 무한 루프 방지
+
                 while last_assigned_days[subject] and (
                         last_assigned_days[subject] == day or last_assigned_days[subject] == days[days.index(day) - 1] or last_assigned_days[subject] == days[(days.index(day) + 1) % len(days)]):
                     duplicated_subjects.append(subject)
                     subject = duplicated_subjects.pop(0)
+
+                    attempts += 1
+                    if attempts >= max_attempts:
+                        raise ValueError("무한 루프를 방지하기 위해 최대 시도 횟수를 초과했습니다.")
 
                 # 현재 과목을 할당하고 마지막 할당 요일을 업데이트
                 timetable.loc[time, day] = subject
