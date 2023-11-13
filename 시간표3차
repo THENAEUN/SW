@@ -1,1 +1,40 @@
+import pandas as pd
+import random
 
+subjects = ['확률과통계/고선우', '딥러닝/고선우', 'AI알고리즘/권수태', '기계학습/권수태',
+            'AI수학/민정익', '논리적문제해결1/민정익', '인공지능기초/이근호', '서비스러닝/이근호',
+            '논리적문제해결2/송주환', '영상이해/송주환', 'AI프로그래밍/김영수', '리눅스운영체제/김영수']
+
+duplicated_subjects = subjects * 2  # subjects를 2번 반복
+random.shuffle(duplicated_subjects)  # 리스트를 섞음
+
+times = ['09:00', '10:30', '12:00', '01:00', '02:30', '04:00']
+days = ['월', '화', '수', '목', '금']
+
+timetable = pd.DataFrame(index=times, columns=days)
+
+# 각 과목이 언제 마지막으로 할당되었는지 기록하기 위한 딕셔너리
+last_assigned_days = {subject: None for subject in subjects}
+
+for day in timetable.columns:
+    for time in timetable.index:
+        if time == '12:00':
+            timetable.loc[time, day] = "점심시간"
+        elif day == '수' and time == '04:00':
+            timetable.loc[time, day] = "진로탐색"
+        else:
+            # 중복 없이 모든 항목이 선택될 수 있도록 pop 사용
+            if duplicated_subjects:
+                subject = duplicated_subjects.pop(0)
+
+                # 같은 과목이 같은 주에 중복되지 않도록 조정
+                while last_assigned_days[subject] and (
+                        last_assigned_days[subject] == day or last_assigned_days[subject] == days[days.index(day) - 1] or last_assigned_days[subject] == days[(days.index(day) + 1) % len(days)]):
+                    duplicated_subjects.append(subject)
+                    subject = duplicated_subjects.pop(0)
+
+                # 현재 과목을 할당하고 마지막 할당 요일을 업데이트
+                timetable.loc[time, day] = subject
+                last_assigned_days[subject] = day
+
+timetable
